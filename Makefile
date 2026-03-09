@@ -1,12 +1,15 @@
 .PHONY: build dev start test fmt lint clean install docs-dev docs-build
 
-dev :
+VERSION ?= v0.0.0-dev
+LDFLAGS := -ldflags="-X 'github.com/nyambogahezron/ultrahooks/cmd.Version=$(VERSION)'"
+
+dev:
 	go run cmd/main.go
 
 start: 
 	./bin/ultrahooks
 build:
-	go build -o bin/ultrahooks
+	go build $(LDFLAGS) -o bin/ultrahooks
 
 test:
 	go test ./...

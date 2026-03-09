@@ -6,9 +6,7 @@ You can install UltraHooks globally on your system, or compile it from source fo
 
 ## Option 1: Global Installation via script (Recommended)
 
-To install the latest compiled binary of UltraHooks straight to your path, run our `install.sh` script.
-
-This script will automatically copy the `ultrahooks` binary into `/usr/local/bin` (or your local user bin path) so it can be accessed globally from any directory.
+To install the latest compiled binary of UltraHooks straight to your path and automatically set up shell auto-completions, run our remote installer (supports macOS, Linux, and Windows).
 
 ```bash
 curl -sSL https://raw.githubusercontent.com/nyambogahezron/ultrahooks/main/install.sh | bash
@@ -36,18 +34,10 @@ Ensure your Go `bin/` directory (usually `~/go/bin`) is included in your `$PATH`
 
 ## Option 3: Local Repository Building
 
-If you have cloned this repository and wish to build it manually for local testing or contribution:
+If you have cloned this repository and wish to build it manually for local testing or contribution, use the local installer. It automatically detects your OS and compiles UltraHooks directly to your Local Bin path:
 
-1. Clone the repository:
-   ```bash
-   git clone https://github.com/nyambogahezron/ultrahooks
-   cd ultrahooks
-   ```
-2. Build the binary outputs:
-   ```bash
-   go build -o ultrahooks
-   ```
-3. Move it locally:
-   ```bash
-   sudo cp ./ultrahooks /usr/local/bin/ultrahooks
-   ```
+```bash
+git clone https://github.com/nyambogahezron/ultrahooks
+cd ultrahooks
+./local_install.sh
+```

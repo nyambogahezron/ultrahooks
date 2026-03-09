@@ -50,7 +50,7 @@ var removeCmd = &cobra.Command{
 				continue
 			}
 
-			// 1. Unwire Git proxy script
+			// Unwire Git proxy script
 			removed, err := hooks.UninstallSingleHook(hookName)
 			if err != nil {
 				utils.Error("Failed to remove Git hook proxy for %s: %v", hookName, err)
@@ -58,7 +58,7 @@ var removeCmd = &cobra.Command{
 				utils.Info("No Git proxy script found for %s", hookName)
 			}
 
-			// 2. Delete the custom shell script
+			// Delete the custom shell script
 			scriptPath := filepath.Join(config.ConfigDir, fmt.Sprintf("%s.sh", hookName))
 			if err := os.Remove(scriptPath); err == nil {
 				utils.Success("Deleted script: %s", scriptPath)
