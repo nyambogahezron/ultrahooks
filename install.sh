@@ -4,9 +4,7 @@ set -e
 REPO="nyambogahezron/ultrahooks"
 GITHUB_URL="https://github.com/$REPO/releases/latest/download"
 
-echo "=========================================="
-echo "      Installing UltraHooks (Remote)      "
-echo "=========================================="
+echo "Installing UltraHooks..."
 
 # Detect OS
 OS="$(uname -s | tr '[:upper:]' '[:lower:]')"
@@ -95,8 +93,6 @@ elif [ "$SHELL_NAME" = "bash" ]; then
     fi
 fi
 
-echo "=========================================="
-echo " UltraHooks Installed Successfully! 🎉    "
-echo " Make sure $INSTALL_DIR is in your PATH.  "
-echo " Run 'ultrahooks --help' to get started.  "
-echo "=========================================="
+echo "UltraHooks Installed Successfully! 🎉"
+echo "Make sure $INSTALL_DIR is in your PATH."
+echo "Run 'ultrahooks --help' to get started."

@@ -1,9 +1,9 @@
+# local installer
+
 #!/usr/bin/env bash
 set -e
 
-echo "=========================================="
-echo "      Installing UltraHooks (Local)       "
-echo "=========================================="
+echo "Installing UltraHooks (Local)..."
 
 # Detect OS
 OS="$(uname -s | tr '[:upper:]' '[:lower:]')"
@@ -31,8 +31,6 @@ echo "Installing to $INSTALL_DIR..."
 mkdir -p "$INSTALL_DIR"
 mv "$DEST" "$INSTALL_DIR/"
 
-echo "=========================================="
-echo " UltraHooks Built & Installed! 🎉         "
-echo " Make sure $INSTALL_DIR is in your PATH.  "
-echo " Run 'ultrahooks --help' to get started.  "
-echo "=========================================="
+echo "UltraHooks Built & Installed! 🎉"
+echo "Make sure $INSTALL_DIR is in your PATH."
+echo "Run 'ultrahooks --help' to get started."
