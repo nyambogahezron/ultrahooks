@@ -5,7 +5,12 @@ export default defineConfig({
   title: "ultrahooks docs",
   description: "ultrahooks docs",
   base: '/ultrahooks/',
-  head: [['link', { rel: 'icon', href: '/ultrahooks/favicon.png' }]],
+  head: [
+    ['link', { rel: 'icon', href: '/ultrahooks/favicon.png' }],
+    ['meta', { property: 'og:image', content: 'https://nyambogahezron.github.io/ultrahooks/og-image.png' }],
+    ['meta', { property: 'og:title', content: 'UltraHooks Docs' }],
+    ['meta', { name: 'twitter:card', content: 'summary_large_image' }]
+  ],
   themeConfig: {
     logo: '/logo.png',
     // https://vitepress.dev/reference/default-theme-config
