@@ -21,16 +21,19 @@ type Config struct {
 
 // UnmarshalYAML implements custom unmarshaling to support both:
 // hooks:
-//   pre-commit:
-//     - name: Foo
-//       run: bar
+//
+//	pre-commit:
+//	  - name: Foo
+//	    run: bar
+//
 // AND
 // hooks:
-//   pre-commit:
-//     parallel: true
-//     commands:
-//       - name: Foo
-//         run: bar
+//
+//	pre-commit:
+//	  parallel: true
+//	  commands:
+//	    - name: Foo
+//	      run: bar
 func (hc *HookConfig) UnmarshalYAML(unmarshal func(interface{}) error) error {
 	// First try to parse it as just a list of commands (the V1/V2 backward compatible way)
 	var commands []HookCmd

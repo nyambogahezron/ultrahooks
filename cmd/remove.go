@@ -14,9 +14,9 @@ import (
 var removeAll bool
 
 var removeCmd = &cobra.Command{
-	Use:   "remove [hook-name]...",
-	Short: "Remove git hooks",
-	Long:  `Removes hooks from .git/hooks and deletes their custom script templates from .ultrahooks/`,
+	Use:       "remove [hook-name]...",
+	Short:     "Remove git hooks",
+	Long:      `Removes hooks from .git/hooks and deletes their custom script templates from .ultrahooks/`,
 	ValidArgs: hooks.StandardHooks,
 	Run: func(cmd *cobra.Command, args []string) {
 		if removeAll {
@@ -24,7 +24,7 @@ var removeCmd = &cobra.Command{
 			if err := hooks.Uninstall(); err != nil {
 				utils.Fatal("Failed to uninstall hooks: %v", err)
 			}
-			
+
 			// Delete all script files in .ultrahooks
 			removedScripts := 0
 			for _, hookName := range hooks.StandardHooks {

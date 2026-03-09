@@ -12,11 +12,11 @@ import (
 )
 
 var addCmd = &cobra.Command{
-	Use:   "add [hook-name]...",
-	Short: "Add new git hooks",
-	Long:  `Scaffolds new executable templates under .ultrahooks/ and instantly wires them to .git/hooks.`,
+	Use:       "add [hook-name]...",
+	Short:     "Add new git hooks",
+	Long:      `Scaffolds new executable templates under .ultrahooks/ and instantly wires them to .git/hooks.`,
 	ValidArgs: hooks.StandardHooks,
-	Args:  cobra.MinimumNArgs(1),
+	Args:      cobra.MinimumNArgs(1),
 	Run: func(cmd *cobra.Command, args []string) {
 		// Ensure .ultrahooks exists regardless of the loop
 		if err := os.MkdirAll(config.ConfigDir, 0755); err != nil {
@@ -30,7 +30,7 @@ var addCmd = &cobra.Command{
 			}
 
 			scriptPath := filepath.Join(config.ConfigDir, fmt.Sprintf("%s.sh", hookName))
-			
+
 			// Create the bash script if it doesn't already exist
 			if _, err := os.Stat(scriptPath); os.IsNotExist(err) {
 				content := fmt.Sprintf("#!/bin/sh\n# Commands executed on %s\necho \"%s triggered\"\n", hookName, hookName)

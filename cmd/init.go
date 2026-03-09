@@ -31,7 +31,7 @@ var initCmd = &cobra.Command{
 		if err := config.CreateDefault(languages); err != nil {
 			utils.Fatal("Failed to create config: %v", err)
 		}
-		
+
 		utils.Success("Created %s with tailored hooks", config.ConfigFile)
 		utils.Info("Awesome! Now run `ultrahooks install` to wire them.")
 	},

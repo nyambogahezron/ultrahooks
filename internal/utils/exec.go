@@ -7,7 +7,7 @@ import (
 
 func ExecuteShell(script string, env map[string]string) error {
 	cmd := exec.Command("sh", "-c", script)
-	
+
 	// Inject Environment Variables
 	cmd.Env = os.Environ() // inherit current env
 	for k, v := range env {
@@ -23,7 +23,7 @@ func ExecuteShell(script string, env map[string]string) error {
 // ExecuteShellCaptured runs a shell script and captures its output. Useful for parallel execution.
 func ExecuteShellCaptured(script string, env map[string]string) (string, error) {
 	cmd := exec.Command("sh", "-c", script)
-	
+
 	cmd.Env = os.Environ()
 	for k, v := range env {
 		cmd.Env = append(cmd.Env, k+"="+v)

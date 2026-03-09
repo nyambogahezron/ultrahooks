@@ -68,7 +68,7 @@ func runSequential(cmds []config.HookCmd) bool {
 
 func runParallel(cmds []config.HookCmd) bool {
 	utils.Info("Executing hooks in parallel...")
-	
+
 	type result struct {
 		displayName string
 		runStr      string
@@ -109,7 +109,7 @@ func runParallel(cmds []config.HookCmd) bool {
 	hasErrors := false
 	for i := 0; i < len(cmds); i++ {
 		res := <-resCh
-		
+
 		if res.skipped {
 			continue
 		}
@@ -119,7 +119,7 @@ func runParallel(cmds []config.HookCmd) bool {
 			utils.CommandLog(res.runStr)
 		}
 		fmt.Println()
-		
+
 		// Print captured output if any
 		if res.output != "" {
 			fmt.Print(res.output)
@@ -132,7 +132,7 @@ func runParallel(cmds []config.HookCmd) bool {
 			utils.Success("Success")
 		}
 	}
-	
+
 	return hasErrors
 }
 

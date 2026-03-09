@@ -1,0 +1,12 @@
+hooks:
+  pre-commit:
+    parallel: true
+    commands:
+      - name: Go Format
+        run: go fmt ./...
+
+      - name: Go Vet (Error Checking)
+        run: go vet ./...
+
+      - name: Go Test
+        run: go test ./...

@@ -5,7 +5,9 @@ export default defineConfig({
   title: "ultrahooks docs",
   description: "ultrahooks docs",
   base: '/ultrahooks/',
+  head: [['link', { rel: 'icon', href: '/ultrahooks/favicon.png' }]],
   themeConfig: {
+    logo: '/logo.png',
     // https://vitepress.dev/reference/default-theme-config
     nav: [
       { text: 'Home', link: '/' },

@@ -99,22 +99,22 @@ func CreateDefault(languages []string) error {
 	for _, lang := range languages {
 		switch lang {
 		case "Go":
-			preCommitCmds.Commands = append(preCommitCmds.Commands, 
+			preCommitCmds.Commands = append(preCommitCmds.Commands,
 				HookCmd{Run: "go fmt ./..."},
 				HookCmd{Run: "go test ./..."},
 			)
 		case "Node.js":
-			preCommitCmds.Commands = append(preCommitCmds.Commands, 
+			preCommitCmds.Commands = append(preCommitCmds.Commands,
 				HookCmd{Run: "npm run lint"},
 				HookCmd{Run: "npm test"},
 			)
 		case "Python":
-			preCommitCmds.Commands = append(preCommitCmds.Commands, 
+			preCommitCmds.Commands = append(preCommitCmds.Commands,
 				HookCmd{Run: "flake8 ."},
 				HookCmd{Run: "pytest"},
 			)
 		case "Rust":
-			preCommitCmds.Commands = append(preCommitCmds.Commands, 
+			preCommitCmds.Commands = append(preCommitCmds.Commands,
 				HookCmd{Run: "cargo fmt -- --check"},
 				HookCmd{Run: "cargo test"},
 			)

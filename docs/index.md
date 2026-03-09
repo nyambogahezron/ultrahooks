@@ -6,6 +6,9 @@ hero:
   name: "UltraHooks"
   text: "The Universal Git Hooks Manager"
   tagline: Blazingly fast, lightweight, and language-agnostic Git hooks management in Go.
+  image:
+    src: /logo.png
+    alt: UltraHooks Logo
   actions:
     - theme: brand
       text: Get Started
