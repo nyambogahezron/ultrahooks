@@ -77,7 +77,10 @@ echo "Setting up shell auto-completion..."
 SHELL_NAME=$(basename "$SHELL")
 if [ "$SHELL_NAME" = "zsh" ]; then
     echo "Adding zsh completion..."
-    ultrahooks completion zsh > "${fpath[1]}/_ultrahooks" 2>/dev/null || echo "Could not inject zsh completions automatically. Run 'ultrahooks completion zsh' manually."
+    ultrahooks completion zsh > ~/.ultrahooks_completion.zsh
+    if ! grep -q ".ultrahooks_completion.zsh" ~/.zshrc; then
+        echo "source ~/.ultrahooks_completion.zsh" >> ~/.zshrc
+    fi
 elif [ "$SHELL_NAME" = "bash" ]; then
     echo "Adding bash completion..."
     if [ -d "/usr/share/bash-completion/completions" ] && [ "$OS" != "windows" ]; then
