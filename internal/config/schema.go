@@ -18,7 +18,6 @@ type Config struct {
 	Hooks map[string]HookConfig `yaml:"hooks"`
 }
 
-
 func (hc *HookConfig) UnmarshalYAML(value *yaml.Node) error {
 	// First try to parse it as just a list of commands (the V1/V2 backward compatible way)
 	if value.Kind == yaml.SequenceNode {
