@@ -3,23 +3,23 @@
 layout: home
 
 hero:
-  name: "ultrahooks docs"
-  text: "ultrahooks docs"
-  tagline: My great project tagline
+  name: "UltraHooks"
+  text: "The Universal Git Hooks Manager"
+  tagline: Blazingly fast, lightweight, and language-agnostic Git hooks management in Go.
   actions:
     - theme: brand
-      text: Markdown Examples
-      link: /markdown-examples
+      text: Get Started
+      link: /README
     - theme: alt
-      text: API Examples
-      link: /api-examples
+      text: Installation
+      link: /installation
 
 features:
-  - title: Feature A
-    details: Lorem ipsum dolor sit amet, consectetur adipiscing elit
-  - title: Feature B
-    details: Lorem ipsum dolor sit amet, consectetur adipiscing elit
-  - title: Feature C
-    details: Lorem ipsum dolor sit amet, consectetur adipiscing elit
+  - title: Blazingly Fast
+    details: Instant execution times. Zero bloated runtime dependencies. Supports concurrent parallel hook execution via goroutines.
+  - title: Language Agnostic
+    details: Works universally for Go, Node.js, Python, Rust, PHP, C++, and more. Automatically discovers .sh, .bat, and .ps1 proxies natively.
+  - title: Extremely Clean
+    details: Never pollutes your root .git/hooks directory again. Surgical precision installation directly wires hooks from your shared repository configurations.
 ---
 

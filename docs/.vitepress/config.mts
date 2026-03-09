@@ -9,21 +9,38 @@ export default defineConfig({
     // https://vitepress.dev/reference/default-theme-config
     nav: [
       { text: 'Home', link: '/' },
-      { text: 'Examples', link: '/markdown-examples' }
+      { text: 'Documentation', link: '/README' },
+      { text: 'Changelog', link: '/changelog' }
     ],
 
     sidebar: [
       {
-        text: 'Examples',
+        text: 'Introduction',
         items: [
-          { text: 'Markdown Examples', link: '/markdown-examples' },
-          { text: 'Runtime API Examples', link: '/api-examples' }
+          { text: 'Getting Started', link: '/README' },
+          { text: 'Installation', link: '/installation' },
+          { text: 'Features & Capabilities', link: '/features' },
+          { text: 'CLI Commands', link: '/commands' }
+        ]
+      },
+      {
+        text: 'Deep Dives',
+        items: [
+          { text: 'Architecture', link: '/architecture' },
+          { text: 'Git Hooks Masterclass', link: '/git-hooks-course' }
+        ]
+      },
+      {
+        text: 'Project',
+        items: [
+          { text: 'Contributing', link: '/contributing' },
+          { text: 'Changelog', link: '/changelog' }
         ]
       }
     ],
 
     socialLinks: [
-      { icon: 'github', link: 'https://github.com/vuejs/vitepress' }
+      { icon: 'github', link: 'https://github.com/nyambogahezron/ultrahooks' }
     ]
   }
 })
