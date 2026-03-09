@@ -20,7 +20,7 @@ func GetConfigPath() string {
 // Load reads and parses the configuration file
 func Load() (*Config, error) {
 	cfg := &Config{
-		Hooks: make(map[string][]HookCmd),
+		Hooks: make(map[string]HookConfig),
 	}
 
 	configPath := GetConfigPath()
@@ -36,20 +36,25 @@ func Load() (*Config, error) {
 	}
 
 	if cfg.Hooks == nil {
-		cfg.Hooks = make(map[string][]HookCmd)
+		cfg.Hooks = make(map[string]HookConfig)
 	}
 
 	// Auto-discover shell scripts in the config directory to make config.yaml optional
 	if entries, err := os.ReadDir(ConfigDir); err == nil {
 		for _, entry := range entries {
-			if !entry.IsDir() && filepath.Ext(entry.Name()) == ".sh" {
-				hookName := entry.Name()[:len(entry.Name())-3] // Remove .sh
+			if entry.IsDir() {
+				continue
+			}
+
+			ext := filepath.Ext(entry.Name())
+			if ext == ".sh" || ext == ".bat" || ext == ".ps1" {
+				hookName := entry.Name()[:len(entry.Name())-len(ext)] // Remove extension
 				scriptPath := filepath.Join(ConfigDir, entry.Name())
 				runStr := "./" + scriptPath
 
-				cmds := cfg.Hooks[hookName]
+				hookCfg := cfg.Hooks[hookName]
 				found := false
-				for _, cmd := range cmds {
+				for _, cmd := range hookCfg.Commands {
 					if cmd.Run == runStr {
 						found = true
 						break
@@ -59,7 +64,8 @@ func Load() (*Config, error) {
 				if !found {
 					// Prepend the auto-discovered script to the commands
 					newCmd := HookCmd{Run: runStr}
-					cfg.Hooks[hookName] = append([]HookCmd{newCmd}, cmds...)
+					hookCfg.Commands = append([]HookCmd{newCmd}, hookCfg.Commands...)
+					cfg.Hooks[hookName] = hookCfg
 				}
 			}
 		}
@@ -68,32 +74,55 @@ func Load() (*Config, error) {
 	return cfg, nil
 }
 
-// CreateDefault creates a starter configuration directory and files
-func CreateDefault() error {
+// CreateDefault creates a starter configuration directory and files based on language choices
+func CreateDefault(languages []string) error {
 	if err := os.MkdirAll(ConfigDir, 0755); err != nil {
 		return err
 	}
 
-	// Create some default executable scripts as examples
+	// Always create a pre-commit.sh
 	preCommitScript := filepath.Join(ConfigDir, "pre-commit.sh")
-	os.WriteFile(preCommitScript, []byte("##!/bin/sh\n# echo \"Running custom pre-commit script\"\n"), 0755)
-
-	prePushScript := filepath.Join(ConfigDir, "pre-push.sh")
-	os.WriteFile(prePushScript, []byte("##!/bin/sh\n# echo \"Running custom pre-push script\"\n"), 0755)
+	os.WriteFile(preCommitScript, []byte("#!/bin/sh\n# echo \"Running custom pre-commit script\"\n"), 0755)
 
 	cfg := Config{
-		Hooks: map[string][]HookCmd{
+		Hooks: map[string]HookConfig{
 			"pre-commit": {
-				{Run: "./.ultrahooks/pre-commit.sh"},
-				{Run: "go fmt ./..."},
-				{Run: "go test ./..."},
-			},
-			"pre-push": {
-				{Run: "./.ultrahooks/pre-push.sh"},
-				{Run: "go build ./..."},
+				Commands: []HookCmd{
+					{Run: "./.ultrahooks/pre-commit.sh"},
+				},
 			},
 		},
 	}
+
+	preCommitCmds := cfg.Hooks["pre-commit"]
+
+	for _, lang := range languages {
+		switch lang {
+		case "Go":
+			preCommitCmds.Commands = append(preCommitCmds.Commands, 
+				HookCmd{Run: "go fmt ./..."},
+				HookCmd{Run: "go test ./..."},
+			)
+		case "Node.js":
+			preCommitCmds.Commands = append(preCommitCmds.Commands, 
+				HookCmd{Run: "npm run lint"},
+				HookCmd{Run: "npm test"},
+			)
+		case "Python":
+			preCommitCmds.Commands = append(preCommitCmds.Commands, 
+				HookCmd{Run: "flake8 ."},
+				HookCmd{Run: "pytest"},
+			)
+		case "Rust":
+			preCommitCmds.Commands = append(preCommitCmds.Commands, 
+				HookCmd{Run: "cargo fmt -- --check"},
+				HookCmd{Run: "cargo test"},
+			)
+		}
+	}
+
+	// Update the map reference
+	cfg.Hooks["pre-commit"] = preCommitCmds
 
 	data, err := yaml.Marshal(&cfg)
 	if err != nil {
