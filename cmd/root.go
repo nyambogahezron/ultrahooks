@@ -14,9 +14,9 @@ var (
 )
 
 var rootCmd = &cobra.Command{
-	Use:     "ultrahooks",
-	Short:   "A fast, lightweight, universal Git hooks manager",
-	Long:    `UltraHooks is a language-agnostic Git hooks manager designed to be simple and fast.`,
+	Use:   "ultrahooks",
+	Short: "A fast, lightweight, universal Git hooks manager",
+	Long:  `UltraHooks is a language-agnostic Git hooks manager designed to be simple and fast.`,
 	Run: func(cmd *cobra.Command, args []string) {
 		v, _ := cmd.Flags().GetBool("version")
 		vCap, _ := cmd.Flags().GetBool("V")
