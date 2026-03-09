@@ -1,6 +1,7 @@
 package config
 
-// HookCmd represents a single command to execute within a hook
+import "gopkg.in/yaml.v3"
+
 type HookCmd struct {
 	Name     string            `yaml:"name"`
 	Run      string            `yaml:"run"`
@@ -8,36 +9,23 @@ type HookCmd struct {
 	Env      map[string]string `yaml:"env,omitempty"`
 }
 
-// HookConfig allows configuring the hook execution overall OR just a list of commands
 type HookConfig struct {
 	Parallel bool      `yaml:"parallel,omitempty"`
 	Commands []HookCmd `yaml:"commands,omitempty"`
 }
 
-// Config represents the .ultrahooks.yml structure
 type Config struct {
 	Hooks map[string]HookConfig `yaml:"hooks"`
 }
 
-// UnmarshalYAML implements custom unmarshaling to support both:
-// hooks:
-//
-//	pre-commit:
-//	  - name: Foo
-//	    run: bar
-//
-// AND
-// hooks:
-//
-//	pre-commit:
-//	  parallel: true
-//	  commands:
-//	    - name: Foo
-//	      run: bar
-func (hc *HookConfig) UnmarshalYAML(unmarshal func(interface{}) error) error {
+
+func (hc *HookConfig) UnmarshalYAML(value *yaml.Node) error {
 	// First try to parse it as just a list of commands (the V1/V2 backward compatible way)
-	var commands []HookCmd
-	if err := unmarshal(&commands); err == nil {
+	if value.Kind == yaml.SequenceNode {
+		var commands []HookCmd
+		if err := value.Decode(&commands); err != nil {
+			return err
+		}
 		hc.Commands = commands
 		return nil
 	}
@@ -45,7 +33,7 @@ func (hc *HookConfig) UnmarshalYAML(unmarshal func(interface{}) error) error {
 	// If that fails, parse it as the extended HookConfig object
 	type extendedHookConfig HookConfig
 	var ehc extendedHookConfig
-	if err := unmarshal(&ehc); err != nil {
+	if err := value.Decode(&ehc); err != nil {
 		return err
 	}
 

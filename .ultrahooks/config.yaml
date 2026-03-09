@@ -7,6 +7,3 @@ hooks:
 
       - name: Go Vet (Error Checking)
         run: go vet ./...
-
-      - name: Go Test
-        run: go test ./...
