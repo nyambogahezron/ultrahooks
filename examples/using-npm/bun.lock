@@ -1,0 +1,15 @@
+{
+  "lockfileVersion": 1,
+  "configVersion": 1,
+  "workspaces": {
+    "": {
+      "name": "using-npm",
+      "dependencies": {
+        "ultrahooks": "^1.0.1",
+      },
+    },
+  },
+  "packages": {
+    "ultrahooks": ["ultrahooks@1.0.1", "", { "bin": { "ultrahooks": "bin/run.js" } }, "sha512-YbIFLJTpVT6GQgRLIS4AXrR2wF4WMgKzFlwJwi5XHYiWpKEhAxbCXg7sJCNPcYlGaorZRdxEV82R6SkINT3xwQ=="],
+  }
+}
