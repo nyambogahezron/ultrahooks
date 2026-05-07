@@ -39,7 +39,7 @@ git clone https://github.com/nyambogahezron/ultrahooks.git
 cd ultrahooks
 
 # Build and install the application locally
-./local_install.sh
+./scripts/install.sh
 ```
 
 ## Global Installation (Recommended)
